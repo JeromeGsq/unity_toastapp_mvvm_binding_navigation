@@ -1,0 +1,8 @@
+{
+  "name": "com.toastapp.mvvm_binding_navigation",
+  "displayName": "com.toastapp.mvvm_binding_navigation",
+  "version": "1.0.0",
+  "unity": "2019.1",
+  "description": "MVVM + Databinding + Navigation",
+  "type": "tool"
+}
