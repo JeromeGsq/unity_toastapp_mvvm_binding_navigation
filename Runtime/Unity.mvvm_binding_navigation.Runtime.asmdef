@@ -1,3 +1,12 @@
-﻿{
-	"name": "mvvm_binding_navigation"
+{
+    "name": "mvvm_binding_navigation",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
 }
