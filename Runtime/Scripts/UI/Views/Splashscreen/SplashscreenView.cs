@@ -9,6 +9,6 @@ public class SplashscreenView : BaseView<SplashscreenViewModel>
     {
         base.Awake();
 
-        this.StartCoroutine(CoroutineUtils.DelaySeconds(() => this.ViewModel.Next(), 1f));
+        this.ViewModel.Next();
     }
 }
