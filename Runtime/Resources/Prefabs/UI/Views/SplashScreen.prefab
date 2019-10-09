@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 666164803}
   - component: {fileID: 666164801}
   - component: {fileID: 9005437391784482307}
+  - component: {fileID: 3105683297869182998}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -89,7 +90,23 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Splashscreen
+  m_Text: '[Splashscreen]'
+--- !u!114 &3105683297869182998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666164798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c17a4101bcc9c24bb4f6db73a89a679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: SplashscreenViewModel.Title
+  viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &3922201127135544597
 GameObject:
   m_ObjectHideFlags: 0

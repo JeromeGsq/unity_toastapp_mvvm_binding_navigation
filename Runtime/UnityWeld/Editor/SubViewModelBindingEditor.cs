@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityWeld.Binding;
@@ -37,17 +38,17 @@ namespace UnityWeld_Editor
             var bindableProperties = FindBindableProperties();
 
             var defaultLabelStyle = EditorStyles.label.fontStyle;
-            EditorStyles.label.fontStyle = propertyPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = propertyPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowViewModelPropertyMenu(
                 new GUIContent(
-                    "Sub view-model property", 
+                    "Sub view-model property",
                     "The property on the top level view model containing the sub view-model"
                 ),
                 bindableProperties,
-                updatedValue => 
+                updatedValue =>
                 {
                     targetScript.ViewModelPropertyName = updatedValue;
 
@@ -88,9 +89,9 @@ namespace UnityWeld_Editor
             {
                 switch (property.name)
                 {
-                    case "viewModelPropertyName": 
+                    case "viewModelPropertyName":
                     case "viewModelTypeName":
-                        propertyPrefabModified = property.prefabOverride 
+                        propertyPrefabModified = property.prefabOverride
                             || propertyPrefabModified;
                         break;
                 }
@@ -99,3 +100,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

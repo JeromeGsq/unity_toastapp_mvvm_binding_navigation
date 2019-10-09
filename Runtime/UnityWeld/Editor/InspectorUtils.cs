@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -14,12 +15,12 @@ namespace UnityWeld_Editor
         /// Show a popup menu with some items disabled and a label to its left.
         /// </summary>
         public static void DoPopup<T>(
-            GUIContent content, 
+            GUIContent content,
             GUIContent label,
-            Func<T, string> menuName, 
+            Func<T, string> menuName,
             Func<T, bool> menuEnabled,
             Func<T, bool> isSelected,
-            Action<T> callback, 
+            Action<T> callback,
             T[] items)
         {
             var labelRect = EditorGUILayout.GetControlRect(false, 16f, EditorStyles.popup);
@@ -28,10 +29,10 @@ namespace UnityWeld_Editor
             var buttonRect = EditorGUI.PrefixLabel(labelRect, controlId, label);
 
             ShowPopupButton(
-                buttonRect, 
+                buttonRect,
                 labelRect,
-                controlId, 
-                content, 
+                controlId,
+                content,
                 () => ShowMenu(menuName, menuEnabled, isSelected, callback, items, buttonRect)
             );
         }
@@ -66,7 +67,7 @@ namespace UnityWeld_Editor
                     }
 
                     if (buttonRect.Contains(currentEvent.mousePosition))
-                    { 
+                    {
                         popup();
                         GUIUtility.keyboardControl = controlId;
                         currentEvent.Use();
@@ -95,8 +96,8 @@ namespace UnityWeld_Editor
                 evt.Use();
                 return false;
             }
-            return evt.type == EventType.KeyDown 
-                && (evt.keyCode == KeyCode.Space || evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter) 
+            return evt.type == EventType.KeyDown
+                && (evt.keyCode == KeyCode.Space || evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
                 && !modifierPressed;
         }
 
@@ -139,3 +140,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

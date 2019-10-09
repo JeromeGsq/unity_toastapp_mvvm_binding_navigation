@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
@@ -54,12 +55,12 @@ namespace UnityWeld_Editor
             );
 
             EditorStyles.label.fontStyle = viewAdapterPrefabModified
-                ? FontStyle.Bold 
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowAdapterMenu(
                 new GUIContent(
-                    "View adapter", 
+                    "View adapter",
                     "Adapter that converts values sent from the view-model to the view."
                 ),
                 viewAdapterTypeNames,
@@ -103,16 +104,16 @@ namespace UnityWeld_Editor
             EditorGUILayout.Space();
 
             EditorStyles.label.fontStyle = viewModelPropertyPrefabModified
-                ? FontStyle.Bold 
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             var adaptedViewPropertyType = AdaptTypeBackward(
-                viewPropertyType, 
+                viewPropertyType,
                 targetScript.ViewAdapterTypeName
             );
             ShowViewModelPropertyMenu(
                 new GUIContent(
-                    "View-model property", 
+                    "View-model property",
                     "Property on the view-model to bind to."
                 ),
                 TypeResolver.FindBindableProperties(targetScript),
@@ -151,3 +152,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Linq;
 using UnityEditor;
@@ -38,15 +39,15 @@ namespace UnityWeld_Editor
 
             Type adapterType;
             viewAdapterOptionsFade = new AnimBool(ShouldShowAdapterOptions(
-                targetScript.ViewAdapterTypeName, 
+                targetScript.ViewAdapterTypeName,
                 out adapterType
             ));
             viewModelAdapterOptionsFade = new AnimBool(ShouldShowAdapterOptions(
-                targetScript.ViewModelAdapterTypeName, 
+                targetScript.ViewModelAdapterTypeName,
                 out adapterType
             ));
             exceptionAdapterOptionsFade = new AnimBool(ShouldShowAdapterOptions(
-                targetScript.ExceptionAdapterTypeName, 
+                targetScript.ExceptionAdapterTypeName,
                 out adapterType
             ));
 
@@ -73,8 +74,8 @@ namespace UnityWeld_Editor
 
             var defaultLabelStyle = EditorStyles.label.fontStyle;
 
-            EditorStyles.label.fontStyle = viewEventPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewEventPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowEventMenu(
@@ -85,8 +86,8 @@ namespace UnityWeld_Editor
                 targetScript.ViewEventName
             );
 
-            EditorStyles.label.fontStyle = viewPropertyPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewPropertyPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             Type viewPropertyType;
@@ -103,7 +104,7 @@ namespace UnityWeld_Editor
 
             // Don't let the user set other options until they've set the event and view property.
             var guiPreviouslyEnabled = GUI.enabled;
-            if (string.IsNullOrEmpty(targetScript.ViewEventName) 
+            if (string.IsNullOrEmpty(targetScript.ViewEventName)
                 || string.IsNullOrEmpty(targetScript.ViewPropertName))
             {
                 GUI.enabled = false;
@@ -114,13 +115,13 @@ namespace UnityWeld_Editor
                     TypeResolver.FindAdapterAttribute(type).OutputType == viewPropertyType
             );
 
-            EditorStyles.label.fontStyle = viewAdapterPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewAdapterPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowAdapterMenu(
                 new GUIContent(
-                    "View adapter", 
+                    "View adapter",
                     "Adapter that converts values sent from the view-model to the view."
                 ),
                 viewAdapterTypeNames,
@@ -143,13 +144,13 @@ namespace UnityWeld_Editor
                 }
             );
 
-            EditorStyles.label.fontStyle = viewAdapterOptionsPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewAdapterOptionsPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             Type viewAdapterType;
             viewAdapterOptionsFade.target = ShouldShowAdapterOptions(
-                targetScript.ViewAdapterTypeName, 
+                targetScript.ViewAdapterTypeName,
                 out viewAdapterType
             );
             ShowAdapterOptionsMenu(
@@ -162,17 +163,17 @@ namespace UnityWeld_Editor
 
             EditorGUILayout.Space();
 
-            EditorStyles.label.fontStyle = viewModelPropertyPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewModelPropertyPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             var adaptedViewPropertyType = AdaptTypeBackward(
-                viewPropertyType, 
+                viewPropertyType,
                 targetScript.ViewAdapterTypeName
             );
             ShowViewModelPropertyMenu(
                 new GUIContent(
-                    "View-model property", 
+                    "View-model property",
                     "Property on the view-model to bind to."
                 ),
                 TypeResolver.FindBindableProperties(targetScript),
@@ -186,13 +187,13 @@ namespace UnityWeld_Editor
                     TypeResolver.FindAdapterAttribute(type).OutputType == adaptedViewPropertyType
             );
 
-            EditorStyles.label.fontStyle = viewModelAdapterPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewModelAdapterPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowAdapterMenu(
                 new GUIContent(
-                    "View-model adapter", 
+                    "View-model adapter",
                     "Adapter that converts from the view back to the view-model"
                 ),
                 viewModelAdapterTypeNames,
@@ -214,13 +215,13 @@ namespace UnityWeld_Editor
                 }
             );
 
-            EditorStyles.label.fontStyle = viewModelAdapterOptionsPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewModelAdapterOptionsPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             Type viewModelAdapterType;
             viewModelAdapterOptionsFade.target = ShouldShowAdapterOptions(
-                targetScript.ViewModelAdapterTypeName, 
+                targetScript.ViewModelAdapterTypeName,
                 out viewModelAdapterType
             );
             ShowAdapterOptionsMenu(
@@ -237,17 +238,17 @@ namespace UnityWeld_Editor
                 type => TypeResolver.FindAdapterAttribute(type).InputType == typeof(Exception)
             );
 
-            EditorStyles.label.fontStyle = exceptionPropertyPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = exceptionPropertyPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             var adaptedExceptionPropertyType = AdaptTypeForward(
-                typeof(Exception), 
+                typeof(Exception),
                 targetScript.ExceptionAdapterTypeName
             );
             ShowViewModelPropertyMenuWithNone(
                 new GUIContent(
-                    "Exception property", 
+                    "Exception property",
                     "Property on the view-model to bind the exception to."
                 ),
                 TypeResolver.FindBindableProperties(targetScript),
@@ -256,13 +257,13 @@ namespace UnityWeld_Editor
                 prop => prop.PropertyType == adaptedExceptionPropertyType
             );
 
-            EditorStyles.label.fontStyle = exceptionAdapterPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = exceptionAdapterPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowAdapterMenu(
                 new GUIContent(
-                    "Exception adapter", 
+                    "Exception adapter",
                     "Adapter that handles exceptions thrown by the view-model adapter"
                 ),
                 expectionAdapterTypeNames,
@@ -284,13 +285,13 @@ namespace UnityWeld_Editor
                 }
             );
 
-            EditorStyles.label.fontStyle = exceptionAdapterOptionsPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = exceptionAdapterOptionsPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             Type exceptionAdapterType;
             exceptionAdapterOptionsFade.target = ShouldShowAdapterOptions(
-                targetScript.ExceptionAdapterTypeName, 
+                targetScript.ExceptionAdapterTypeName,
                 out exceptionAdapterType
             );
             ShowAdapterOptionsMenu(
@@ -365,3 +366,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

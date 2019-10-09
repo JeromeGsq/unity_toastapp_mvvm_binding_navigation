@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -45,9 +46,9 @@ namespace UnityWeld_Editor
                 updatedValue => targetScript.TemplatesRoot = updatedValue,
                 targetScript.TemplatesRoot,
                 (GameObject)EditorGUILayout.ObjectField(
-                    new GUIContent("Collection templates", "Parent object for all templates to copy and bind to items in the collection."), 
-                    targetScript.TemplatesRoot, 
-                    typeof(GameObject), 
+                    new GUIContent("Collection templates", "Parent object for all templates to copy and bind to items in the collection."),
+                    targetScript.TemplatesRoot,
+                    typeof(GameObject),
                     true
                 ),
                 "Set collection templates root"
@@ -82,3 +83,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

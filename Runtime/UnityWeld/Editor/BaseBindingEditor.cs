@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Linq;
 using System.Reflection;
@@ -135,7 +136,7 @@ namespace UnityWeld_Editor
         {
             var options = bindableProperties
                 .Select(prop => new OptionInfo(
-                    string.Concat(prop.ViewModelType, "/", prop.MemberName, " : ", prop.Member.PropertyType.Name), 
+                    string.Concat(prop.ViewModelType, "/", prop.MemberName, " : ", prop.Member.PropertyType.Name),
                     prop
                 ))
                 .OrderBy(option => option.Property.ViewModelTypeName)
@@ -154,7 +155,7 @@ namespace UnityWeld_Editor
                     {
                         return string.IsNullOrEmpty(curPropertyValue);
                     }
-                    
+
                     return option.ToString() == curPropertyValue;
                 },
                 option => UpdateProperty(
@@ -173,8 +174,8 @@ namespace UnityWeld_Editor
         /// Shows a dropdown for selecting a property in the UI to bind to.
         /// </summary>
         protected void ShowViewPropertyMenu(
-            GUIContent label, 
-            BindableMember<PropertyInfo>[] properties, 
+            GUIContent label,
+            BindableMember<PropertyInfo>[] properties,
             Action<string> propertyValueSetter,
             string curPropertyValue,
             out Type selectedPropertyType
@@ -185,9 +186,9 @@ namespace UnityWeld_Editor
                 .ToArray();
             var selectedIndex = Array.IndexOf(propertyNames, curPropertyValue);
             var content = properties.Select(prop => new GUIContent(string.Concat(
-                    prop.ViewModelTypeName, 
+                    prop.ViewModelTypeName,
                     "/",
-                    prop.MemberName, 
+                    prop.MemberName,
                     " : ",
                     prop.Member.PropertyType.Name
                 )))
@@ -287,9 +288,9 @@ namespace UnityWeld_Editor
         /// Show a field for selecting an AdapterOptions object matching the specified type of adapter.
         /// </summary>
         protected void ShowAdapterOptionsMenu(
-            string label, 
-            Type adapterOptionsType, 
-            Action<AdapterOptions> propertyValueSetter, 
+            string label,
+            Type adapterOptionsType,
+            Action<AdapterOptions> propertyValueSetter,
             AdapterOptions currentPropertyValue,
             float fadeAmount
         )
@@ -299,17 +300,17 @@ namespace UnityWeld_Editor
                 EditorGUI.indentLevel++;
 
                 var newAdapterOptions = (AdapterOptions)EditorGUILayout.ObjectField(
-                    label, 
-                    currentPropertyValue, 
-                    adapterOptionsType, 
+                    label,
+                    currentPropertyValue,
+                    adapterOptionsType,
                     false
                 );
 
                 EditorGUI.indentLevel--;
 
                 UpdateProperty(
-                    propertyValueSetter, 
-                    currentPropertyValue, 
+                    propertyValueSetter,
+                    currentPropertyValue,
                     newAdapterOptions,
                     "Set adapter options"
                 );
@@ -388,3 +389,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

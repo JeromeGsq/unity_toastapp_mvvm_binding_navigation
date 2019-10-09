@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -28,13 +29,13 @@ namespace UnityWeld_Editor
             UpdatePrefabModifiedProperties();
 
             var defaultLabelStyle = EditorStyles.label.fontStyle;
-            EditorStyles.label.fontStyle = viewModelPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = viewModelPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             ShowViewModelPropertyMenu(
                 new GUIContent(
-                    "Template property", 
+                    "Template property",
                     "Property on the view model to use for selecting templates."
                 ),
                 TypeResolver.FindBindableProperties(targetScript),
@@ -43,8 +44,8 @@ namespace UnityWeld_Editor
                 property => true
             );
 
-            EditorStyles.label.fontStyle = templatesRootPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = templatesRootPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             UpdateProperty(
@@ -52,11 +53,11 @@ namespace UnityWeld_Editor
                 targetScript.TemplatesRoot,
                 (GameObject)EditorGUILayout.ObjectField(
                     new GUIContent(
-                        "Templates root object", 
+                        "Templates root object",
                         "Parent object to the objects we want to use as templates."
                     ),
-                    targetScript.TemplatesRoot, 
-                    typeof(GameObject), 
+                    targetScript.TemplatesRoot,
+                    typeof(GameObject),
                     true
                 ),
                 "Set template binding root object"
@@ -92,3 +93,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Linq;
 using UnityEditor;
@@ -41,18 +42,18 @@ namespace UnityWeld_Editor
                 .ToArray();
 
             var selectedIndex = Array.IndexOf(
-                availableViewModels, 
+                availableViewModels,
                 targetScript.ViewModelTypeName
             );
 
             var defaultLabelStyle = EditorStyles.label.fontStyle;
-            EditorStyles.label.fontStyle = propertyPrefabModified 
-                ? FontStyle.Bold 
+            EditorStyles.label.fontStyle = propertyPrefabModified
+                ? FontStyle.Bold
                 : defaultLabelStyle;
 
             var newSelectedIndex = EditorGUILayout.Popup(
                 new GUIContent(
-                    "Template view model", 
+                    "Template view model",
                     "Type of the view model that this template will be bound to when it is instantiated."
                 ),
                 selectedIndex,
@@ -64,11 +65,11 @@ namespace UnityWeld_Editor
             EditorStyles.label.fontStyle = defaultLabelStyle;
 
             UpdateProperty(newValue => targetScript.ViewModelTypeName = newValue,
-                selectedIndex < 0 
-                    ? string.Empty 
+                selectedIndex < 0
+                    ? string.Empty
                     : availableViewModels[selectedIndex],
-                newSelectedIndex < 0 
-                    ? string.Empty 
+                newSelectedIndex < 0
+                    ? string.Empty
                     : availableViewModels[newSelectedIndex],
                 "Set bound view-model for template"
             );
@@ -94,3 +95,4 @@ namespace UnityWeld_Editor
         }
     }
 }
+#endif
