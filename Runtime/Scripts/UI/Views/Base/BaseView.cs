@@ -5,20 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class BaseView<T> : UnityView
 {
-    [Space(10)]
-
-    [SerializeField]
-    private AppearanceType appearanceType = AppearanceType.Default;
-
-    [SerializeField]
-    private float duration = 0.2f;
-
-    protected CanvasGroup CanvasGroup
-    {
-        get;
-        set;
-    }
-
     protected RectTransform RectTransform
     {
         get;
@@ -31,24 +17,21 @@ public class BaseView<T> : UnityView
         set;
     }
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
-        this.CanvasGroup = this.GetComponent<CanvasGroup>();
         this.RectTransform = this.GetComponent<RectTransform>();
         this.ViewModel = this.GetComponent<T>();
     }
 
-    public override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
-
+        base.OnEnable();
         this.ShowView();
     }
 
     public virtual void ShowView()
     {
-        this.CanvasGroup.alpha = 1;
     }
 }

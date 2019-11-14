@@ -5,56 +5,44 @@ namespace Toastapp.MVVM
 {
     public class UnityView : MonoBehaviour, IView
     {
-        public virtual void Awake()
+        private IView viewComponent;
+        private INotifyPropertyChanged viewModelComponent;
+
+        protected virtual void Awake()
         {
             this.Init();
         }
 
-        public virtual void Start()
+        protected virtual void Start()
         {
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnEnable()
         {
         }
 
-        public virtual void Update()
+        protected virtual void Update()
         {
         }
 
-        public virtual void LateUpdate()
+        protected virtual void LateUpdate()
         {
         }
 
-        public virtual void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
         }
 
-        public virtual void OnDisable()
+        protected virtual void OnDisable()
         {
         }
 
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
+            this.UnSubscribe();
         }
 
-        public virtual void OnGUI()
-        {
-        }
-
-        public virtual void OnTriggerEnter()
-        {
-        }
-
-        public virtual void OnTriggerExit()
-        {
-        }
-
-        public virtual void OnCollisionEnter()
-        {
-        }
-
-        public virtual void OnCollisionExit()
+        protected virtual void OnGUI()
         {
         }
 
@@ -62,8 +50,8 @@ namespace Toastapp.MVVM
         {
             var components = this.GetComponents(typeof(UnityEngine.Component));
 
-            IView viewComponent = default(IView);
-            INotifyPropertyChanged viewModelComponent = default(INotifyPropertyChanged);
+            viewComponent = default;
+            viewModelComponent = default;
 
             foreach (var component in components)
             {
@@ -93,6 +81,14 @@ namespace Toastapp.MVVM
 
         public virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs property)
         {
+        }
+
+        private void UnSubscribe()
+        {
+            if (viewModelComponent != null && viewComponent != null)
+            {
+                viewModelComponent.PropertyChanged -= viewComponent.OnPropertyChanged;
+            }
         }
     }
 }

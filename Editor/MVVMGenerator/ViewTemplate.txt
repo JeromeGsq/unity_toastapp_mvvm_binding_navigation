@@ -1,0 +1,7 @@
+using UnityEngine;
+
+[RequireComponent(typeof(-arg-ViewModel))]
+public class -arg-View : BaseView<-arg-ViewModel>
+{
+
+}
