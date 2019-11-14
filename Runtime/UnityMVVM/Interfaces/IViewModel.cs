@@ -7,7 +7,7 @@ namespace Toastapp.MVVM
     {
         bool IsInBackground
         {
-            get; set;
+            get;
         }
 
         object Parameters
@@ -16,5 +16,6 @@ namespace Toastapp.MVVM
         }
 
         void SetParameters<T>(T parameters);
+        void SetInBackground(bool parameters);
     }
 }

@@ -87,7 +87,7 @@ namespace Toastapp.MVVM
                         if (inter.Equals(typeof(IViewModel)))
                         {
                             var viewModel = component as IViewModel;
-                            viewModel.IsInBackground = true;
+                            viewModel.SetInBackground(true);
                             break;
                         }
                     }
@@ -153,7 +153,7 @@ namespace Toastapp.MVVM
                         if (inter.Equals(typeof(IViewModel)))
                         {
                             var viewModel = component as IViewModel;
-                            viewModel.IsInBackground = false;
+                            viewModel.SetInBackground(false);
                             break;
                         }
                     }

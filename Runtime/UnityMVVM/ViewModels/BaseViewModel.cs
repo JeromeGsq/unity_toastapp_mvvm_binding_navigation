@@ -6,8 +6,8 @@ using UnityWeld.Binding;
 public class BaseViewModel : UnityViewModel
 {
     [Binding]
-	public virtual void CloseViewModel()
-	{
-		NavigationService.Get?.CloseViewModel(this);
-	}
+    public virtual void CloseViewModel()
+    {
+        NavigationService.Get?.CloseViewModel(this);
+    }
 }

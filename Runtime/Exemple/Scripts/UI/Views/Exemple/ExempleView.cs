@@ -5,11 +5,9 @@ namespace Toastapp.MVVM.Exemple
     [RequireComponent(typeof(ExempleViewModel))]
     public class ExempleView : BaseView<ExempleViewModel>
     {
-        private bool canNext = false;
-
-        public override void ShowView()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
             this.ViewModel.Next();
         }
     }

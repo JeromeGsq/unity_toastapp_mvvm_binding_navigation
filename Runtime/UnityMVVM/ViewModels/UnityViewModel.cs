@@ -12,11 +12,7 @@ namespace Toastapp.MVVM
             set;
         }
 
-        public bool IsInBackground
-        {
-            get;
-            set;
-        }
+        public bool IsInBackground { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -26,7 +22,18 @@ namespace Toastapp.MVVM
             this.OnParametersChanged();
         }
 
+        public void SetInBackground(bool inBackground)
+        {
+            this.IsInBackground = inBackground;
+            this.RaisePropertyChanged(nameof(this.IsInBackground));
+            this.OnBackgroundStatusChange(inBackground);
+        }
+
         protected virtual void OnParametersChanged()
+        {
+        }
+
+        protected virtual void OnBackgroundStatusChange(bool isInBackground)
         {
         }
 

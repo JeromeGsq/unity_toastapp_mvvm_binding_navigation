@@ -1,10 +1,26 @@
-﻿using Toastapp.MVVM;
+﻿using System.ComponentModel;
+using Toastapp.MVVM;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(CanvasGroup))]
 [RequireComponent(typeof(RectTransform))]
-public class BaseView<T> : UnityView
+[RequireComponent(typeof(GraphicRaycaster))]
+public class BaseView<T> : UnityView where T : UnityViewModel
 {
+    protected Canvas Canvas
+    {
+        get;
+        set;
+    }
+
+    protected GraphicRaycaster GraphicRaycaster
+    {
+        get;
+        set;
+    }
+
     protected RectTransform RectTransform
     {
         get;
@@ -21,6 +37,8 @@ public class BaseView<T> : UnityView
     {
         base.Awake();
 
+        this.Canvas = this.GetComponent<Canvas>();
+        this.GraphicRaycaster = this.GetComponent<GraphicRaycaster>();
         this.RectTransform = this.GetComponent<RectTransform>();
         this.ViewModel = this.GetComponent<T>();
     }
@@ -28,10 +46,18 @@ public class BaseView<T> : UnityView
     protected override void OnEnable()
     {
         base.OnEnable();
-        this.ShowView();
     }
 
-    public virtual void ShowView()
+    public override void OnPropertyChanged(object sender, PropertyChangedEventArgs property)
     {
+        base.OnPropertyChanged(sender, property);
+
+        if (this.ViewModel != null && property.PropertyName == nameof(this.ViewModel.IsInBackground))
+        {
+            // Improve perfomance by disabling components and lowering draw calls
+            // If ViewModel is null, keep components enable
+            this.Canvas.enabled = !this.ViewModel?.IsInBackground ?? true;
+            this.GraphicRaycaster.enabled = !this.ViewModel?.IsInBackground ?? true;
+        }
     }
 }

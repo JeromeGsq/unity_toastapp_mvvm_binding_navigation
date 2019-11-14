@@ -50,8 +50,8 @@ namespace Toastapp.MVVM
         {
             var components = this.GetComponents(typeof(UnityEngine.Component));
 
-            viewComponent = default;
-            viewModelComponent = default;
+            this.viewComponent = default;
+            this.viewModelComponent = default;
 
             foreach (var component in components)
             {
@@ -61,21 +61,21 @@ namespace Toastapp.MVVM
                     // If this gameobject contains a component of type IView...
                     if (inter.Equals(typeof(IView)))
                     {
-                        viewComponent = component as IView;
+                        this.viewComponent = component as IView;
                     }
 
                     // And if this gameobject contains a component of type IViewModel...
                     if (inter.Equals(typeof(INotifyPropertyChanged)))
                     {
-                        viewModelComponent = component as INotifyPropertyChanged;
+                        this.viewModelComponent = component as INotifyPropertyChanged;
                     }
                 }
             }
 
-            if (viewComponent != default(IView) && viewModelComponent != default(INotifyPropertyChanged))
+            if (this.viewComponent != default(IView) && this.viewModelComponent != default(INotifyPropertyChanged))
             {
                 // ... subscribe 
-                viewModelComponent.PropertyChanged += viewComponent.OnPropertyChanged;
+                this.viewModelComponent.PropertyChanged += this.viewComponent.OnPropertyChanged;
             }
         }
 
@@ -85,9 +85,9 @@ namespace Toastapp.MVVM
 
         private void UnSubscribe()
         {
-            if (viewModelComponent != null && viewComponent != null)
+            if (this.viewModelComponent != null && this.viewComponent != null)
             {
-                viewModelComponent.PropertyChanged -= viewComponent.OnPropertyChanged;
+                this.viewModelComponent.PropertyChanged -= this.viewComponent.OnPropertyChanged;
             }
         }
     }
