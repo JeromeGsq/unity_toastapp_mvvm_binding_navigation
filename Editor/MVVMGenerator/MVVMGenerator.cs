@@ -101,13 +101,10 @@ public class MVVMGenerator : EditorWindow
             var path = AssetDatabase.GetAssetPath(scriptFolder);
             var templateViewPath = path + "\\Views\\" + scriptName + "\\" + scriptName + "View.cs";
             var templateViewModelPath = path + "\\ViewModels\\" + scriptName + "\\" + scriptName + "ViewModel.cs";
-            var rootPrefabPath = url + "Prefabs\\MVVMPrefab.prefab";
-            var destinationPrefabPath = "Assets\\Resources\\Prefabs\\UI\\Views\\" + scriptName + "View.prefab";
 #if UNITY_EDITOR_OSX
             url = url.Replace("\\", "/");
             templateViewPath = templateViewPath.Replace("\\", "/");
             templateViewModelPath = templateViewModelPath.Replace("\\", "/");
-            rootPrefabPath = rootPrefabPath.Replace("\\", "/");
             destinationPrefabPath = destinationPrefabPath.Replace("\\", "/");
 #endif
 
@@ -135,9 +132,6 @@ public class MVVMGenerator : EditorWindow
         try
         {
             var path = AssetDatabase.GetAssetPath(scriptFolder);
-            var templateViewPath = path + "\\Views\\" + scriptName + "\\" + scriptName + "View.cs";
-            var templateViewModelPath = path + "\\ViewModels\\" + scriptName + "\\" + scriptName + "ViewModel.cs";
-            var rootPrefabPath = url + "Prefabs\\MVVMPrefab.prefab";
             var destinationPrefabPath = "Assets\\Resources\\Prefabs\\UI\\Views\\" + scriptName + "View.prefab";
             var viewTypeName = $"{scriptName}View, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
 
@@ -145,15 +139,16 @@ public class MVVMGenerator : EditorWindow
             url = url.Replace("\\", "/");
             templateViewPath = templateViewPath.Replace("\\", "/");
             templateViewModelPath = templateViewModelPath.Replace("\\", "/");
-            rootPrefabPath = rootPrefabPath.Replace("\\", "/");
             destinationPrefabPath = destinationPrefabPath.Replace("\\", "/");
 #endif
             Type viewType = Type.GetType(viewTypeName);
             Debug.Log(viewType);
 
-            var prefabView = PrefabUtility.LoadPrefabContents(rootPrefabPath);
+            var prefabView = new GameObject();
             prefabView.AddComponent(viewType);
             PrefabUtility.SaveAsPrefabAssetAndConnect(prefabView, destinationPrefabPath, InteractionMode.AutomatedAction);
+
+            DestroyImmediate(prefabView);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

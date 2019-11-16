@@ -19,10 +19,10 @@ namespace Toastapp.MVVM.Exemple
             this.Title = "ExempleViewModel from viewmodel";
         }
 
+        [Binding]
         public void Next()
         {
-            // Navigate to next VM
-            // NavigationService.Get.ShowViewModel(typeof(MenuViewModel));
+            NavigationService.Get.ShowViewModel(typeof(ExempleViewModel));
         }
     }
 }

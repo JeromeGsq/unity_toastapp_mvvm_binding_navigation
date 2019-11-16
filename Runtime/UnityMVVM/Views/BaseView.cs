@@ -46,6 +46,8 @@ public class BaseView<T> : UnityView where T : UnityViewModel
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        this.SetAndStretchToParentSize(this.RectTransform, this.transform.parent.GetComponent<RectTransform>());
     }
 
     public override void OnPropertyChanged(object sender, PropertyChangedEventArgs property)
@@ -59,5 +61,13 @@ public class BaseView<T> : UnityView where T : UnityViewModel
             this.Canvas.enabled = !this.ViewModel?.IsInBackground ?? true;
             this.GraphicRaycaster.enabled = !this.ViewModel?.IsInBackground ?? true;
         }
+    }
+
+    private void SetAndStretchToParentSize(RectTransform rect, RectTransform parentRect)
+    {
+        rect.anchorMin = new Vector2(0, 0);
+        rect.anchorMax = new Vector2(1, 1);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = Vector2.zero;
     }
 }

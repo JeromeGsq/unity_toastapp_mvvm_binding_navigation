@@ -42,7 +42,7 @@ namespace Toastapp.MVVM
 
                 foreach (var component in components)
                 {
-                    var interfaces = component.GetType().GetInterfaces();
+                    var interfaces = component?.GetType()?.GetInterfaces() ?? new Type[0];
                     foreach (var inter in interfaces)
                     {
                         // If this gameobject contains a component of type IViewModel...
@@ -58,17 +58,17 @@ namespace Toastapp.MVVM
             }
         }
 
-        public GameObject ShowViewModel(Type destinationViewModelType)
+        public GameObject ShowViewModel(Type destinationViewModelType, bool hidePreviousView = true)
         {
-            return this.ShowViewModel<object>(destinationViewModelType, null);
+            return this.ShowViewModel<object>(destinationViewModelType, null, hidePreviousView: hidePreviousView);
         }
 
-        public GameObject ShowViewModel(Type destinationViewModelType, Transform root)
+        public GameObject ShowViewModel(Type destinationViewModelType, Transform root, bool hidePreviousView = true)
         {
-            return this.ShowViewModel<object>(destinationViewModelType, null, root);
+            return this.ShowViewModel<object>(destinationViewModelType, null, root, hidePreviousView: hidePreviousView);
         }
 
-        public GameObject ShowViewModel<T>(Type destinationViewModelType, T parameters, Transform rootView = null)
+        public GameObject ShowViewModel<T>(Type destinationViewModelType, T parameters, Transform rootView = null, bool hidePreviousView = true)
         {
             // Use default root
             if (rootView == null)
@@ -77,7 +77,7 @@ namespace Toastapp.MVVM
             }
 
             // Current viewmodel should be set as background
-            if (this.navigationStack != null && this.navigationStack?.Count > 0)
+            if (hidePreviousView && this.navigationStack != null && this.navigationStack?.Count > 0)
             {
                 foreach (var component in this.navigationStack?.LastOrDefault()?.GameObject?.GetComponents(typeof(Component)))
                 {
@@ -93,7 +93,6 @@ namespace Toastapp.MVVM
                     }
                 }
             }
-
 
             foreach (var viewAndViewModelTypeGameObject in this.viewAndViewModelTypePrefabs)
             {
@@ -167,8 +166,8 @@ namespace Toastapp.MVVM
             {
                 Destroy(child.gameObject);
             }
-            this.navigationStack?.Clear();
 
+            this.navigationStack?.Clear();
         }
     }
 }
