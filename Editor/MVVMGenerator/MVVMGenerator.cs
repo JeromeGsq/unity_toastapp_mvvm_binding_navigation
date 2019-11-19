@@ -105,7 +105,6 @@ public class MVVMGenerator : EditorWindow
             url = url.Replace("\\", "/");
             templateViewPath = templateViewPath.Replace("\\", "/");
             templateViewModelPath = templateViewModelPath.Replace("\\", "/");
-            destinationPrefabPath = destinationPrefabPath.Replace("\\", "/");
 #endif
 
             var templateView = File.ReadAllText(url + "ViewTemplate.txt");
@@ -137,8 +136,6 @@ public class MVVMGenerator : EditorWindow
 
 #if UNITY_EDITOR_OSX
             url = url.Replace("\\", "/");
-            templateViewPath = templateViewPath.Replace("\\", "/");
-            templateViewModelPath = templateViewModelPath.Replace("\\", "/");
             destinationPrefabPath = destinationPrefabPath.Replace("\\", "/");
 #endif
             Type viewType = Type.GetType(viewTypeName);
