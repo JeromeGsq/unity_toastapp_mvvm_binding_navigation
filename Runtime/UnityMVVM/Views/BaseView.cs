@@ -47,7 +47,10 @@ public class BaseView<T> : UnityView where T : UnityViewModel
     {
         base.OnEnable();
 
-        this.SetAndStretchToParentSize(this.RectTransform, this.transform.parent.GetComponent<RectTransform>());
+        if(this.transform.parent?.GetComponent<RectTransform>() != null)
+        {
+            this.SetAndStretchToParentSize(this.RectTransform, this.transform.parent.GetComponent<RectTransform>());
+        }
     }
 
     public override void OnPropertyChanged(object sender, PropertyChangedEventArgs property)
